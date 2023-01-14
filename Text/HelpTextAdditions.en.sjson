@@ -1,0 +1,19 @@
+{
+    Texts = [
+        "_append",
+        {
+            Id = "UseRon"
+            DisplayName = "{I} Converse?"
+        }
+        {
+            Id = "NPC_Ron_01"
+            DisplayName = "Ron"
+            Description = "Trader?"
+        }
+        {
+            Id = "NPC_Ron_Unknown"
+            DisplayName = "??????"
+            Description = "??????"
+        }
+    ]
+}

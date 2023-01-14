@@ -1,0 +1,84 @@
+{
+    Obstacles = [
+        "_append"
+      {
+        Name = "RonTrader"
+        InheritFrom = "1_BaseInvulnerableObstacle"
+        DisplayInEditor = true
+        Life = 
+        {
+            HitFx = "InvincibleHitSpark"
+            Invulnerable = true
+        }
+        Thing = 
+        {
+            EditorOutlineDrawBounds = true
+            AttachedAnim = "RonTraderAnim"
+            Grip = 999999.0
+            MeshType = "Vertical"
+            StopsUnits = true
+            Tallness = 1.0
+            TouchdownSound = "/EmptyCue"
+            Offset = { X = 0 Y = 0 }
+            Points = [
+            { X = 300 Y = -200 } /* 0001 (Green) */
+            { X = -800 Y = 300 } /* 0002 (Red) */
+            { X = 100 Y = 700 } /* 0003 (Yellow) */
+            { X = 400 Y = 208 } /* 0004 (White) */
+            ]
+            Interact =
+            {
+                Distance = 600.0
+            }
+        }
+      }
+      {
+        Name = "CaravanPit"
+        InheritFrom = "1_BaseInvulnerableObstacle"
+        DisplayInEditor = true
+        Thing = 
+        {
+          EditorOutlineDrawBounds = false
+  
+          Graphic = "Tilesets\House\CaravanPit"
+          Tallness = 667.0
+          Points = [
+            { X = -250 Y = 47 }
+            { X = 39 Y = 204 }
+            { X = 366 Y = 31 }
+            { X = 78 Y = -121 }
+          ]
+        }
+      }
+      {
+        Name = "CaravanFloorRune"
+        InheritFrom = "1_BaseInvulnerableObstacle"
+        DisplayInEditor = true
+        Thing = 
+        {
+          EditorOutlineDrawBounds = false
+  
+          Graphic = "Tilesets\House\CaravanFloorRune"
+          Tallness = 667.0
+          Points = [
+            { X = -1 Y = 1 }
+            { X = 1 Y = 1 }
+            { X = 1 Y = 1 }
+            { X = 1 Y = -1 }
+          ]
+        }
+      }
+      {
+        Name = "CaravanFloor01"
+        InheritFrom = "1_BaseTerrainTile"
+        DisplayInEditor = true
+        Thing = 
+        {
+          EditorOutlineDrawBounds = false
+  
+          Graphic = "CaravanInteriorFloor01"
+          Tallness = 667.0
+        }
+      }
+    ]
+}

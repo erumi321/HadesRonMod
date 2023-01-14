@@ -1,0 +1,24 @@
+Import "RonTrader.lua"
+
+To "Win/Maps/RoomPreRun.thing_bin"
+Map "Maps/RonTraderMap.thing_text"
+To "Win/Maps/CaravanInterior.thing_bin"
+Replace "Maps/CaravanInterior.thing_bin"
+To "Maps/CaravanInterior.map_text"
+Replace "Maps/CaravanInterior.map_text"
+
+To "Game/Obstacles/House.sjson"
+SJSON "Animations/HouseAdditions.sjson"
+To "Game/Animations/ObstacleAnimations.sjson"
+SJSON "Animations/AnimAdditions.sjson"
+
+To "Game/Text/en/HelpText.en.sjson"
+SJSON "Text/HelpTextAdditions.en.sjson"
+
+To "Game/Animations/PortraitAnimations.sjson"
+SJSON "Animations/PortraitAnimations.sjson"
+
+To "Win/Packages/RonImages.pkg"
+Replace "RonImages.pkg"
+To "Win/Packages/RonImages.pkg_manifest"
+Replace "RonImages.pkg_manifest"

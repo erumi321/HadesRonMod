@@ -1,0 +1,98 @@
+{
+    Animations = [
+        "_append"
+        {
+            Name = "Portrait_Ron_01"
+            InheritFrom = "Portrait_Base_01"
+            FilePath = "Portraits\Ron_01"
+            EndFrame = 1
+            StartFrame = 1
+            Scale = 0.67
+        }
+        {
+            Name = "Portrait_Ron_01_Exit"
+            InheritFrom = "Portrait_Base_01_Exit"
+            FilePath = "Portraits\Ron_01"
+            EndOffsetX = -20.0
+            EndFrame = 1
+            StartFrame = 1
+            Scale = 0.67
+        }
+        {
+            Name = "Portrait_Ron_02"
+            InheritFrom = "Portrait_Base_01"
+            FilePath = "Portraits\Ron_02"
+            EndFrame = 1
+            StartFrame = 1
+            Scale = 0.67
+        }
+        {
+            Name = "Portrait_Ron_02_Exit"
+            InheritFrom = "Portrait_Base_01_Exit"
+            EndOffsetX = -20.0
+            FilePath = "Portraits\Ron_02"
+            EndFrame = 1
+            StartFrame = 1
+            Scale = 0.67
+        }
+        {
+            Name = "Portrait_Ron_01_dark"
+            InheritFrom = "Portrait_Base_01"
+            FilePath = "Portraits\Ron_01_dark"
+            EndFrame = 1
+            StartFrame = 1
+            Scale = 0.67
+        }
+        {
+            Name = "Portrait_Ron_01_dark_Exit"
+            InheritFrom = "Portrait_Base_01_Exit"
+            FilePath = "Portraits\Ron_01_dark"
+            EndOffsetX = -20.0
+            EndFrame = 1
+            StartFrame = 1
+            Scale = 0.67
+        }
+        {
+            Name = "PortraitEmoteSleep"
+            Type = "Constant"
+            FilePath = "Dev\blank_invisible"
+            GroupName = "Combat_Menu_TraitTray_Overlay"
+            Duration = 3
+            VisualFx = "PortraitEmoteSleepFx"
+            VisualFxIntervalMin = 0.2
+            VisualFxIntervalMax = 0.45
+            VisualFxCap = 7
+            LocationFromOwner = "Maintain"
+        }
+        {
+            Name = "PortraitEmoteSleepFx"
+            Type = "Constant"
+            FilePath = "Particles\particle_z"
+            Material = "Unlit"
+            StartScale = 0
+            EndScale = 1.5
+            StartAlpha = 1.0
+            EndAlpha = 0.0
+            EaseIn = 0
+            EaseOut = 1
+            RandomDurationMin = 2.1
+            RandomDurationMax = 4.2
+            Gravity = -20
+            ScaleMin = 0.4
+            ScaleMax = 0.45
+            OffsetX = 250
+            OffsetY = -200
+            RandomOffsetX = 25
+            RandomOffsetY = 25
+            PingPongScale = true
+            ScaleFromOwner = "Ignore"
+            AngleFromOwner = "Ignore"
+            LocationFromOwner = "Ignore"
+            LocationZFromOwner = "Maintain"
+            UseOwnAngle = true
+            VelocityMin = 10
+            VelocityMax = 30
+            GroupName = "Combat_Menu_TraitTray_Overlay"
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    Animations = [
+        "_append",
+        {
+            Name = "RonTraderAnim"
+            FilePath = "Tilesets\House\RonCaravan"
+            Type = "Book"
+            EndFrame = 1
+            NumFrames = 1
+            StartFrame = 1
+            StartScale = 1.0
+            EndScale = 1.025
+            EaseIn = 0.5
+            EaseOut = 0.65
+            Duration = 3.0
+            HoldLastFrame = true
+            PingPongScale = true
+            Loop = true
+        }
+        {
+            Name = "CaravanInteriorFloor01"
+            FilePath = "Tilesets\House\CaravanInteriorFloor01"
+            Type = "Constant"
+            EndFrame = 1
+            NumFrames = 1
+            StartFrame = 1
+            Material="Emissive"
+        }
+        
+    ]
+}
+
+/*  */
