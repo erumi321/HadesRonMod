@@ -1,0 +1,16 @@
+{
+  Obstacles = [
+        "_append"
+        {
+            Name = "CaravanBookBase"
+            InheritFrom = "1_BaseGUIObstacle"
+            DisplayInEditor = false
+            Thing =
+            {
+                EditorOutlineDrawBounds = false
+        
+                Graphic = "CaravanBookBase"
+            }
+        }
+    ]
+}

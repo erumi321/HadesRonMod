@@ -1,0 +1,25 @@
+{
+  Animations = [
+    "_append"
+      {
+        Name = "CaravanBookBase"
+        FilePath = "GUI\Screens\CaravanEquip\BookBase"
+        Type = "Constant"
+        Material = "Unlit"
+        OffsetX = -20
+        StartOffsetY = 7
+        EndOffsetY = -7
+        PingPongShiftOverDuration = true
+        Duration = 3.0
+        Loop = true
+        EaseIn = 0.0
+        EaseOut = 1.0
+      }
+      {
+        Name = "CaravanStarSymbol"
+        FilePath = "GUI\Screens\CaravanEquip\StarSymbol"
+        Type = "Constant"
+        Material = "Unlit"
+     }
+    ]
+}

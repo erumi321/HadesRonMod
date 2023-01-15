@@ -165,7 +165,18 @@ RoomData.CaravanInterior =
         -- Up we go.
         { Cue = "/VO/ZagreusField_4393" },
     },
-
+    ObstacleData = {
+        [1] = {
+            Name = "CaravanLoadout",
+            InteractDistance = 150,
+            InteractOffsetX = 0,
+            InteractOffsetY = 0,
+            UseText = "UseMarket",
+            -- UseSound = "/Leftovers/World Sounds/CaravanCreak",
+            OnUsedFunctionName = "RonTrader.OpenLoadoutMenu",
+            EmoteOffsetZ = 100,
+        }
+    }
 }
 
 OverwriteTableKeys( RoomData, RoomSetData.Tartarus )
@@ -192,7 +203,7 @@ end}
 
 function RonTrader.LoadCaravan(triggerArgs)
     DebugPrint({Text="Load"})
-	LoadMap({ Name = "CaravanInterior"})
+	LoadMap({ Name = "CaravanInterior", ResetBinks = true})
 
 
 
@@ -202,61 +213,35 @@ function RonTrader.LoadCaravan(triggerArgs)
 end
 
 OnAnyLoad{"CaravanInterior", function(triggerArgs)
-    RonTrader.StartCaravanPresentation(CurrentRun, CurrentRun.CurrentRoom)
+    -- RonTrader.StartCaravanPresentation(CurrentRun, CurrentRun.CurrentRoom)
+    -- SwapAnimation({ Name = "FireFootstepL-Spawner", DestinationName = CurrentRun.CurrentRoom.FootstepAnimationL })
+    -- SwapAnimation({ Name = "FireFootstepR-Spawner", DestinationName =  CurrentRun.CurrentRoom.FootstepAnimationR })
+    -- SwapAnimation({ Name = "DashCrack", DestinationName =  CurrentRun.CurrentRoom.FootstepAnimationR })
+
+    LockCamera({ Id = 40013, Duration = 0 })
+    Teleport({ Id = 40000, DestinationId = 40009, CaravanZoomOverride = true })
+    thread(function()
+        thread( MoveHeroToRoomPosition, { DestinationId = 400012, DisableCollision =  true, UseDefaultSpeed = true } )
+        wait(0.1)
+        AdjustZoom({ Fraction = 1.25, LerpTime = 0, CaravanZoomOverride = true})
+    end)
+
+	TeleportCursor({ OffsetX = ScreenCenterX, OffsetY = ScreenCenterY })
+
+    for id, obstacleData in pairs( RoomData.CaravanInterior.ObstacleData ) do
+        local obstacle = DeepCopyTable( obstacleData )
+        obstacle.ObjectId = id
+        Activate({ Id = obstacle.ObjectId })
+        SetAlpha({ Id = obstacle.ObjectId, Fraction = 1 })
+        SetupObstacle( obstacle )
+    end
+
 end}
 
 OnControlPressed{"Shout", function(triggerArgs)
     RonTrader.LoadCaravan(triggerArgs)
 end}
 
-function RonTrader.StartCaravanPresentation( currentRun, currentRoom, metaPointsAwarded )
-	ShowingCombatUI = nil
-	ZeroMouseTether( "StartRoomPresentation" )
-	local prevRoom = GetPreviousRoom( currentRun )
-
-	-- SetConfigOption({ Name = "FullscreenEffectGroup", Value = currentRoom.FullscreenEffectGroup or "Vignette" })
-
-	GatherRoomPresentationObjects( currentRun, currentRoom )
-
-	-- if currentRoom.CameraZoomWeights ~= nil then
-	-- 	for id, weight in pairs( currentRoom.CameraZoomWeights ) do
-	-- 		SetCameraZoomWeight({ Id = id, Weight = weight, ZoomSpeed = 1.0 })
-	-- 	end
-	-- end
-
-	local roomIntroSequenceDuration = currentRoom.IntroSequenceDuration or 0.8
-	if not currentRoom.IgnoreClamps then
-		local cameraClamps = currentRoom.CameraClamps or GetDefaultClampIds()
-		DebugAssert({ Condition = #cameraClamps ~= 1, Text = "Exactly one camera clamp on a map is non-sensical" })
-		SetCameraClamp({ Ids = cameraClamps, SoftClamp = currentRoom.SoftClamp })
-	end
-
-	if currentRoom.CameraStartPoint ~= nil and currentRoom.CameraStartPoint > 0 then
-		LockCamera({ Id = currentRoom.CameraStartPoint, Duration = 0 })
-	else
-		LockCamera({ Id = currentRun.Hero.ObjectId })
-	end
-	if currentRoom.HeroStartPoint ~= nil then
-		Teleport({ Id = currentRun.Hero.ObjectId, DestinationId = currentRoom.HeroStartPoint })
-	end
-
-	-- StartRoomAmbience( currentRun, currentRoom )
-	thread( StartRoomMusic, currentRun, currentRoom )
-
-	if AsphodelBoatSoundId ~= nil and currentRoom.EntranceFunctionName ~= "AsphodelEnterRoomPresentation" and currentRoom.EntranceFunctionName ~= "RoomEntranceBossHydra" then -- @hack
-		--DebugPrint({ Text = "Stopping AsphodelBoatSoundId for currentRoom.EntranceFunctionName = "..tostring(currentRoom.EntranceFunctionName) })
-		StopSound({ Id = AsphodelBoatSoundId, Duration = 0.2 })
-		AsphodelBoatSoundId = nil
-	end
-
-    SetUnitProperty({ DestinationId = currentRun.Hero.ObjectId, Property = "CollideWithObstacles", Value = false })
-    SetUnitProperty({ DestinationId = currentRun.Hero.ObjectId, Property = "CollideWithUnits", Value = false })
-
-    thread( MoveHeroToRoomPosition, { DestinationId = currentRoom.HeroEndPoint, DisableCollision =  true, UseDefaultSpeed = true } )
-    AdjustZoom({ Fraction = 1.25, LerpTime = 0, CaravanZoomOverride = true})
-
-	TeleportCursor({ OffsetX = ScreenCenterX, OffsetY = ScreenCenterY })
-end
 
 ModUtil.WrapBaseFunction("FocusCamera", function(baseFunc, args)
     if GetMapName({}) == "CaravanInterior" and args.CaravanZoomOverride == nil then
@@ -271,3 +256,71 @@ ModUtil.WrapBaseFunction("AdjustZoom", function(baseFunc, args)
     end
     return baseFunc(args)
 end, RonTrader)
+
+ModUtil.WrapBaseFunction("SwapAnimation", function(baseFunc, args)
+    if GetMapName({}) == "CaravanInterior" and args.CaravanZoomOverride == nil then
+        return
+    end
+    return baseFunc(args)
+end, RonTrader)
+
+function RonTrader.OpenLoadoutMenu(triggerArgs)
+    local screen = { Components = {} }
+	screen.Name = "RonTrader.Loadout"
+
+	if IsScreenOpen( screen.Name ) then
+		return
+	end
+    OnScreenOpened({ Flag = screen.Name, PersistCombatUI = false })
+	FreezePlayerUnit()
+    HideCombatUI("RonTrader")
+	EnableShopGamepadCursor()
+	SetConfigOption({ Name = "FreeFormSelectWrapY", Value = false })
+	SetConfigOption({ Name = "FreeFormSelectStepDistance", Value = 8 })
+	SetConfigOption({ Name = "FreeFormSelectSuccessDistanceStep", Value = 8 })
+	SetConfigOption({ Name = "FreeFormSelectRepeatDelay", Value = 0.6 })
+	SetConfigOption({ Name = "FreeFormSelectRepeatInterval", Value = 0.1 })
+	SetConfigOption({ Name = "FreeFormSelecSearchFromId", Value = 0 })
+
+	PlaySound({ Name = "/SFX/Menu Sounds/ContractorMenuOpen" })
+	local components = screen.Components
+	components.BackgroundDim = CreateScreenComponent({ Name = "rectangle01", Group = "RonTrader.Backing" })
+    SetScale({ Id = components.BackgroundDim.Id, Fraction = 4 })
+	SetColor({ Id = components.BackgroundDim.Id, Color = {0, 0, 0, 0.66} })
+	components.Background = CreateScreenComponent({ Name = "rectangle01", Group = "RonTrader.Backing" })
+	SetColor({ Id = components.Background.Id, Color = {0, 0, 0, 0} })
+
+
+    components.CloseButton = CreateScreenComponent({ Name = "ButtonClose", Group = "RonTrader.Buttons", Scale = 0.7 })
+	Attach({ Id = components.CloseButton.Id, DestinationId = components.Background.Id, OffsetX = 0, OffsetY = 440 })
+	components.CloseButton.OnPressedFunctionName = "RonTrader.CloseLoadoutMenu"
+    components.CloseButton.ControlHotkey = "Cancel"
+
+    components.Bookbase = CreateScreenComponent({ Name = "CaravanBookBase",Scale = 0.5, Group="RonTrader.Images"})
+    SetScaleY({ Id = components.Bookbase.Id, Fraction = 0.6})
+    SetScaleX({ Id = components.Bookbase.Id, Fraction = 1})
+	Attach({ Id = components.Bookbase.Id, DestinationId = components.Background.Id, OffsetX = 0, OffsetY = 250 })
+
+    components.StarSymbol = CreateScreenComponent({ Name = "BlankObstacle", Scale = 0.4, Group="RonTrader.Images"})
+	Attach({ Id = components.StarSymbol.Id, DestinationId = components.Background.Id, OffsetX = 0, OffsetY = -125 })
+	SetAnimation({ Name = "CaravanStarSymbol", DestinationId = components.StarSymbol.Id})
+   
+    thread( HandleWASDInput, screen )
+	HandleScreenInput( screen )
+end
+
+function RonTrader.CloseLoadoutMenu( screen, button )
+	DisableShopGamepadCursor()
+	SetConfigOption({ Name = "FreeFormSelectStepDistance", Value = 16 })
+	SetConfigOption({ Name = "FreeFormSelectSuccessDistanceStep", Value = 8 })
+	SetConfigOption({ Name = "FreeFormSelectRepeatDelay", Value = 0.0 })
+
+	PlaySound({ Name = "/SFX/Menu Sounds/ContractorMenuClose" })
+	CloseScreen( GetAllIds( screen.Components ) )
+
+	UnfreezePlayerUnit()
+	screen.KeepOpen = false
+	OnScreenClosed({ Flag = screen.Name })
+    ShowCombatUI("RonTrader")
+
+end
