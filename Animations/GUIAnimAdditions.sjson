@@ -7,19 +7,181 @@
         Type = "Constant"
         Material = "Unlit"
         OffsetX = -20
-        StartOffsetY = 7
-        EndOffsetY = -7
+        StartOffsetY = 3
+        EndOffsetY = -3
         PingPongShiftOverDuration = true
         Duration = 3.0
         Loop = true
         EaseIn = 0.0
         EaseOut = 1.0
+        Red = 0.5
+        Green = 0.5
+        Blue = 0.5
       }
       {
         Name = "CaravanStarSymbol"
-        FilePath = "GUI\Screens\CaravanEquip\StarSymbol"
+        FilePath = "GUI\Screens\CaravanEquip\StarSymbolEmpty"
         Type = "Constant"
         Material = "Unlit"
+        StartOffsetY = 14
+        EndOffsetY = -14
+        PingPongShiftOverDuration = true
+        Duration = 6.0
+        Loop = true
+        EaseIn = 0.0
+        EaseOut = 1.0
+     }
+      {
+         Name = "ShadeSpotlight"
+         FilePath = "Particles\AuraBasicFillCircle"
+         GroupName = "FX_Terrain_Add"
+         Type = "Constant"
+      VisualFxManagerCap = 300
+         AngleFromOwner = "Ignore"
+         AddColor = true
+         Alpha = 0.5
+         EndFrame = 1
+         NumFrames = 1
+         StartFrame = 1
+         DieWithOwner = true
+         LocationZFromOwner = "Ignore"
+         ScaleY = 0.5
+         VisualFxDistanceMax = 40.0
+         VisualFxDistanceMin = 30.0
+         ActiveVisualFxCap = 30
+               StartOffsetY = 3
+        EndOffsetY = -3
+        PingPongShiftOverDuration = true
+                Duration = 3.0
+                Loop = true
+    }
+     {
+        Name = "ShadeNaked_Idle"
+        FilePath = "Fx\ShadeNakedFlame\ShadeNakedFlame"
+        GroupName = "FX_Dark"
+        Type = "Book"
+        VisualFx = "ShadeFlames"
+        AngleFromOwner = "Ignore"
+        Duration = 3.0
+        EndFrame = 61
+        Loop = true
+        NumFrames = 61
+        StartFrame = 1
+        RandomFlipHorizontal = true
+        DieWithOwner = true
+        SortMode = "Isometric"
+        Material = "Unlit"
+        ActiveVisualFxCap = 15
+        VisualFxDistanceMax = 30.0
+        VisualFxDistanceMin = 20.0
+        PingPongShiftOverDuration = true
+        Saturation = -1.0
+        StartOffsetY = 3
+        EndOffsetY = -3
+      }
+      {
+        Name = "CaravanStarSymbolBlue"
+        FilePath = "GUI\Screens\CaravanEquip\StarSymbolBlueC"
+        Type = "Constant"
+        Material = "Unlit"
+        StartOffsetY = 14
+        EndOffsetY = -14
+        PingPongShiftOverDuration = true
+        Duration = 6.0
+        Loop = true
+        EaseIn = 0.0
+        EaseOut = 1.0
+     }
+     {
+        Name = "CaravanStarSymbolGreen"
+        FilePath = "GUI\Screens\CaravanEquip\StarSymbolGreenC"
+        Type = "Constant"
+        Material = "Unlit"
+        StartOffsetY = 14
+        EndOffsetY = -14
+        PingPongShiftOverDuration = true
+        Duration = 6.0
+        Loop = true
+        EaseIn = 0.0
+        EaseOut = 1.0
+     }
+     {
+        Name = "CaravanStarSymbolOrange"
+        FilePath = "GUI\Screens\CaravanEquip\StarSymbolOrangeC"
+        Type = "Constant"
+        Material = "Unlit"
+        StartOffsetY = 14
+        EndOffsetY = -14
+        PingPongShiftOverDuration = true
+        Duration = 6.0
+        Loop = true
+        EaseIn = 0.0
+        EaseOut = 1.0
+     }
+     {
+        Name = "CaravanStarSymbolPink"
+        FilePath = "GUI\Screens\CaravanEquip\StarSymbolPinkC"
+        Type = "Constant"
+        Material = "Unlit"
+        StartOffsetY = 14
+        EndOffsetY = -14
+        PingPongShiftOverDuration = true
+        Duration = 6.0
+        Loop = true
+        EaseIn = 0.0
+        EaseOut = 1.0
+     }
+     {
+        Name = "CaravanStarSymbolPurple"
+        FilePath = "GUI\Screens\CaravanEquip\StarSymbolPurpleC"
+        Type = "Constant"
+        Material = "Unlit"
+        StartOffsetY = 14
+        EndOffsetY = -14
+        PingPongShiftOverDuration = true
+        Duration = 6.0
+        Loop = true
+        EaseIn = 0.0
+        EaseOut = 1.0
+     }
+     {
+        Name = "CaravanStarSymbolRed"
+        FilePath = "GUI\Screens\CaravanEquip\StarSymbolRedC"
+        Type = "Constant"
+        Material = "Unlit"
+        StartOffsetY = 14
+        EndOffsetY = -14
+        PingPongShiftOverDuration = true
+        Duration = 6.0
+        Loop = true
+        EaseIn = 0.0
+        EaseOut = 1.0
+     }
+     {
+        Name = "CaravanStarSymbolTeal"
+        FilePath = "GUI\Screens\CaravanEquip\StarSymbolTealC"
+        Type = "Constant"
+        Material = "Unlit"
+        StartOffsetY = 14
+        EndOffsetY = -14
+        PingPongShiftOverDuration = true
+        Duration = 6.0
+        Loop = true
+        EaseIn = 0.0
+        EaseOut = 1.0
+     }
+     {
+        Name = "CaravanStarSymbolYellow"
+        FilePath = "GUI\Screens\CaravanEquip\StarSymbolYellowC"
+        Type = "Constant"
+        Material = "Unlit"
+        StartOffsetY = 14
+        EndOffsetY = -14
+        PingPongShiftOverDuration = true
+        Duration = 6.0
+        Loop = true
+        EaseIn = 0.0
+        EaseOut = 1.0
      }
     ]
 }
